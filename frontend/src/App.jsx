@@ -13,6 +13,9 @@ const Layout = () => {
         <Sidebar />
         <div className="flex-1 overflow-hidden">
           <div className="p-4 overflow-auto">
+            <div className="flex flex-row p-4 w-full rounded-md bg-slate-300 mb-2">
+              Ruta
+            </div>
             <Outlet />
           </div>
         </div>
