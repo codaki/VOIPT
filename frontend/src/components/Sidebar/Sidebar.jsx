@@ -1,6 +1,7 @@
 import { FaSellsy } from "react-icons/fa";
 import { IoBusinessSharp } from "react-icons/io5";
 import { MdContacts, MdDashboard } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 export function Sidebar() {
   return (
@@ -13,11 +14,11 @@ export function Sidebar() {
         <ul className="flex flex-col gap-6  w-full">
           <button className="py-4 flex space-x-2 justify-center hover:bg-slate-50 hover:text-blue-500 rounded-md  focus:outline-none focus:bg-gray-300 focus:text-blue-600 ">
             <MdDashboard className="mt-1" />
-            <a href="/#">Dashboard</a>
+            <Link to="/">Dashboard</Link>
           </button>
           <button className="py-4 flex space-x-2 justify-center hover:bg-slate-50 hover:text-blue-500 rounded-md focus:outline-none focus:bg-gray-300 focus:text-blue-600">
             <MdContacts className="mt-1" />
-            <a href="/contacts">Contactos</a>
+            <Link to="/contacts">Contactos</Link>
           </button>
           <button className="py-4 flex space-x-2 justify-center hover:bg-slate-50 hover:text-blue-500 rounded-md focus:outline-none focus:bg-gray-300 focus:text-blue-600">
             <IoBusinessSharp className="mt-1" />
