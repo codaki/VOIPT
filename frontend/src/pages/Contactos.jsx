@@ -84,16 +84,14 @@ function Categories() {
       </h1>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div className="flex justify-between items-center p-4 bg-white dark:bg-gray-900">
-          <Link className="link" to={`/newCategory`}>
-            <button className="ml-4 py-2 px-4 bg-blue-500 text-white rounded-lg">
-              Crear Categoria
-            </button>
-          </Link>
-          <Link className="link" to={`/`}>
-            <button className="ml-4 py-2 px-4 bg-green-500 text-white rounded-lg">
-              Productos
-            </button>
-          </Link>
+          <button className="ml-4 py-2 px-4 bg-blue-500 text-white rounded-lg">
+            Crear Categoria
+          </button>
+
+          <button className="ml-4 py-2 px-4 bg-green-500 text-white rounded-lg">
+            Productos
+          </button>
+
           <button
             onClick={deleteSelectedCategories}
             className="ml-4 my-2 py-2 px-4 bg-red-500 text-white rounded-lg"

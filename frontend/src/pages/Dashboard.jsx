@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-// import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Modal1 from "../components/Modal/Modal";
 import Modal2 from "../components/Modal/Modal2";
 function Dashboard() {
@@ -14,8 +14,8 @@ function Dashboard() {
   const [clienteCorreo, setClienteCorreo] = useState("");
   const [clienteCedula, setClienteCedula] = useState("");
   const [clienteMovil, setClienteMovil] = useState("");
-  // const [clienteOficina, setClienteOficina] = useState("");
-  // const [clienteOpcional, setClienteOpcional] = useState("");
+  const [clienteOficina, setClienteOficina] = useState("");
+  const [clienteOpcional, setClienteOpcional] = useState("");
   let id = location.pathname.split("/")[1];
 
   const [showModal, setShowModal] = useState(false);
@@ -53,8 +53,8 @@ function Dashboard() {
         setClienteCorreo(data.cliente_correo);
         setClienteCedula(data.cliente_cedula);
         setClienteMovil(data.cliente_movil);
-        // setClienteOficina(data.cliente_oficina);
-        // setClienteOpcional(data.cliente_opcional);
+        setClienteOficina(data.cliente_oficina);
+        setClienteOpcional(data.cliente_opcional);
       } catch (error) {
         console.error("Failed to fetch product:", error);
       }
@@ -124,15 +124,7 @@ function Dashboard() {
                   placeholder="Doe "
                 />
               </div>
-              <div className="mb-5 mx-2">
-                <label className="text-lg">Telefono :</label>
-                <input
-                  className="h-5 mx-4 text-lg p-2 rounded-md"
-                  type="text"
-                  value={clienteCasa}
-                  placeholder="Doe "
-                />
-              </div>
+
               <div className="mb-5 mx-2">
                 <label className="text-lg">Correo :</label>
                 <input
@@ -152,11 +144,38 @@ function Dashboard() {
                 />
               </div>
               <div className="mb-5 mx-2">
+                <label className="text-lg">Telefono :</label>
+                <input
+                  className="h-5 mx-4 text-lg p-2 rounded-md"
+                  type="text"
+                  value={clienteCasa}
+                  placeholder="Doe "
+                />
+              </div>
+              <div className="mb-5 mx-2">
                 <label className="text-lg">Movil :</label>
                 <input
                   className="h-5 mx-4 text-lg p-2 rounded-md"
                   type="text"
                   value={clienteMovil}
+                  placeholder="Doe "
+                />
+              </div>
+              <div className="mb-5 mx-2">
+                <label className="text-lg">Opcional :</label>
+                <input
+                  className="h-5 mx-4 text-lg p-2 rounded-md"
+                  type="text"
+                  value={clienteOpcional}
+                  placeholder="Doe "
+                />
+              </div>
+              <div className="mb-5 mx-2">
+                <label className="text-lg">Oficina:</label>
+                <input
+                  className="h-5 mx-4 text-lg p-2 rounded-md"
+                  type="text"
+                  value={clienteOficina}
                   placeholder="Doe "
                 />
               </div>
@@ -202,9 +221,11 @@ function Dashboard() {
                   Productos
                 </button>
 
-                <button className="ml-4 my-2 py-2 px-4 bg-red-500 text-white rounded-lg">
-                  Eliminar Categorias
-                </button>
+                <Link className="link" to={`/contacts`}>
+                  <button className="ml-4 my-2 py-2 px-4 bg-yellow-500 text-white rounded-lg">
+                    Contactos
+                  </button>
+                </Link>
               </div>
 
               <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -330,10 +351,11 @@ function Dashboard() {
                 <button className="ml-4 py-2 px-4 bg-green-500 text-white rounded-lg">
                   Gestiones
                 </button>
-
-                <button className="ml-4 my-2 py-2 px-4 bg-red-500 text-white rounded-lg">
-                  Eliminar Gestión
-                </button>
+                <Link className="link" to={`/contacts`}>
+                  <button className="ml-4 my-2 py-2 px-4 bg-yellow-500 text-white rounded-lg">
+                    Contactos
+                  </button>
+                </Link>
               </div>
 
               <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -345,6 +367,12 @@ function Dashboard() {
                     <th>Tipo Gestión</th>
                     <th scope="col" className="px-6 py-3">
                       Observación
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Número Contactado
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Valor Compromiso
                     </th>
                     <th scope="col" className="px-6 py-3">
                       Fecha
@@ -365,6 +393,8 @@ function Dashboard() {
                       </th>
                       <th>{category.gestion_tipo_nombre}</th>
                       <td className="px-6 py-4">{category.observación}</td>
+                      <td className="px-6 py-4">{category.numero}</td>
+                      <td className="px-6 py-4">{category.valor_compromiso}</td>
                       <td className="px-6 py-4">{category.fecha}</td>
                     </tr>
                   ))}

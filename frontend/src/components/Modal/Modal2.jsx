@@ -16,6 +16,9 @@ export default function Modal2({ title, onDecision, id }) {
   const [gestiones, setGestiones] = useState([]);
   const [observacion, setObservacion] = useState("");
   const [gestion, setGestion] = useState(1);
+  const [valorCompromiso, setValorCompromiso] = useState("");
+  const [numeros, setNumeros] = useState([]);
+  const [selectedNumero, setSelectedNumero] = useState("");
 
   async function handleSubmit() {
     try {
@@ -25,6 +28,8 @@ export default function Modal2({ title, onDecision, id }) {
           cliente: id,
           gestion: gestion,
           observacion: observacion,
+          valorCompromiso: valorCompromiso,
+          numero: selectedNumero,
         }
       );
       console.log(response);
@@ -73,6 +78,21 @@ export default function Modal2({ title, onDecision, id }) {
         console.error(error);
       }
     }
+    async function fetchNumeros() {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/api/getNumeros/${id}`
+        );
+        console.log(response);
+        console.log(response.data);
+        setNumeros(response.data);
+        setSelectedNumero(Object.values(response.data[0])[0].toString());
+        console.log(numeros);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchNumeros();
     fetchTiposGestiones();
     fetchGestiones();
   }, []);
@@ -126,10 +146,11 @@ export default function Modal2({ title, onDecision, id }) {
                       >
                         {title}
                       </DialogTitle>
-                      <div className="mt-2 text-gray-500">
-                        <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                      <div className="mt-2 text-gray-800">
+                        <div className="bg-gray-100 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 rounded-md">
                           <form>
                             <select
+                              className="mb-2 w-50"
                               onChange={(e) => {
                                 setGestion(e.target.value);
                                 getValores(e.target.value);
@@ -156,12 +177,38 @@ export default function Modal2({ title, onDecision, id }) {
                                 </option>
                               ))}
                             </select>
+                            <select
+                              className="mb-2 w-50" // Adjust className as needed
+                              onChange={(e) => {
+                                setSelectedNumero(e.target.value);
+                              }}
+                            >
+                              {numeros.length > 0 &&
+                                Object.entries(numeros[0]).map(
+                                  ([key, value]) => (
+                                    <option key={key} value={value}>
+                                      {`${key}: ${value}`}
+                                    </option>
+                                  )
+                                )}
+                            </select>
                             <label className=" flex py-2">Observaciones</label>
                             <input
                               required
                               className="py-3 m-1 h-20 w-80"
                               type="text"
                               onChange={(e) => setObservacion(e.target.value)}
+                            />
+                            <label className=" flex py-2">
+                              Valor Compromiso ($USD)
+                            </label>
+                            <input
+                              required
+                              className="py-3 m-1 h-5 w-80"
+                              type="text"
+                              onChange={(e) =>
+                                setValorCompromiso(e.target.value)
+                              }
                             />
                           </form>
                         </div>

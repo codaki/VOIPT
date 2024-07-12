@@ -62,7 +62,7 @@ app.get("/api/getProductos/:id", (req, res) => {
 app.get("/api/getGestiones/:id", (req, res) => {
   const id = req.params.id;
   db.query(
-    "SELECT g.gestion_id,g.gestion_nombre,gc.observación,gt.gestion_tipo_nombre,gc.fecha FROM gestion_cliente AS gc INNER JOIN gestion AS g ON gc.gc_gestion = g.gestion_id INNER JOIN gestion_tipo as gt ON g.gestion_tipo = gt.gestion_tipo_id where gc.gc_cliente = ?;",
+    "SELECT g.gestion_id,g.gestion_nombre,gc.observación,gt.gestion_tipo_nombre,gc.fecha,gc.numero,gc.valor_compromiso FROM gestion_cliente AS gc INNER JOIN gestion AS g ON gc.gc_gestion = g.gestion_id INNER JOIN gestion_tipo as gt ON g.gestion_tipo = gt.gestion_tipo_id where gc.gc_cliente = ?;",
     id,
     (err, result) => {
       if (err) {
@@ -102,10 +102,10 @@ app.post("/api/enviarProductos", (req, res) => {
 
 app.post("/api/enviarGestion", (req, res) => {
   console.log(req.body);
-  const { cliente, gestion, observacion } = req.body;
+  const { cliente, gestion, observacion, numero, valorCompromiso } = req.body;
   db.query(
-    "INSERT INTO gestion_cliente (gc_cliente,gc_gestion,observación) VALUES (?,?,?)",
-    [cliente, gestion, observacion],
+    "INSERT INTO gestion_cliente (gc_cliente,gc_gestion,observación,numero,valor_compromiso) VALUES (?,?,?,?,?)",
+    [cliente, gestion, observacion, numero, valorCompromiso],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -140,6 +140,21 @@ app.get("/api/getGestionesId/:id", (req, res) => {
   const id = req.params.id;
   db.query(
     "SELECT * FROM gestion WHERE gestion_tipo = ?",
+    id,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("An error occurred");
+      }
+      res.send(result);
+    }
+  );
+});
+
+app.get("/api/getNumeros/:id", (req, res) => {
+  const id = req.params.id;
+  db.query(
+    "SELECT cliente_casa,cliente_movil,cliente_oficina,cliente_opcional FROM cliente where cliente_id = ?;",
     id,
     (err, result) => {
       if (err) {
