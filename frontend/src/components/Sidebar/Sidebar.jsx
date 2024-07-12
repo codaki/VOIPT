@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 export function Sidebar() {
   return (
     <>
-      <aside className="flex flex-col content-between p-4 bg-gradient-to-r from-indigo-500  min-w-60 to-blue-500 text-white items-center gap-9 rounded-sm">
+      <aside className="flex flex-col content-between p-4 bg-gradient-to-r from-indigo-500  min-w-52 to-blue-500 text-white items-center gap-9 rounded-sm">
         <button className="font-bold text-xl py-4">Sistema</button>
         <div className="flex bg-white  w-full h-0.5"></div>
         <div>Usuario</div>

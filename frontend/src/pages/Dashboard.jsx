@@ -97,65 +97,65 @@ function Dashboard() {
           <div className="flex flex-col w-full  gap-2 ">
             <div className="flex w-full">Información de contacto</div>
             <div className="flex w-full  flex-wrap p-2 ">
-              <div className="mb-5 mx-2">
+              <div className="mb-5 ">
                 <label className="text-lg">Nombre:</label>
                 <input
-                  className="h-5 mx-4 text-lg p-2 rounded-md"
+                  className="h-5 mx-2 text-lg p-2 rounded-md text-center"
                   type="text"
                   value={clienteNombre}
                   placeholder="Jhon "
                 />
               </div>
-              <div className="mb-5  mx-2">
+              <div className="mb-5 ">
                 <label className="text-lg">Apellido:</label>
                 <input
-                  className="h-5 mx-4 text-lg p-2 rounded-md"
+                  className="h-5 mx-4 text-lg p-2 rounded-md text-center"
                   type="text"
                   value={clienteApellido}
                   placeholder="Doe "
                 />
               </div>
-              <div className="mb-5  mx-2">
+              <div className="mb-5  ">
                 <label className="text-lg">Dirección :</label>
                 <input
-                  className="h-5 mx-4 text-lg p-2 rounded-md"
+                  className="h-5 mx-4 text-lg p-2 rounded-md text-center"
                   type="text"
                   value={clienteDireccion}
                   placeholder="Doe "
                 />
               </div>
 
-              <div className="mb-5 mx-2">
+              <div className="mb-5 ">
                 <label className="text-lg">Correo :</label>
                 <input
-                  className="h-5 mx-4 text-lg p-2 rounded-md"
+                  className="h-5 mx-4 text-lg p-2 rounded-md text-center"
                   type="text"
                   value={clienteCorreo}
                   placeholder="Doe "
                 />
               </div>
-              <div className="mb-5 mx-2">
+              <div className="mb-5">
                 <label className="text-lg">Cédula :</label>
                 <input
-                  className="h-5 mx-4 text-lg p-2 rounded-md"
+                  className="h-5 mx-4 text-lg p-2 rounded-md text-center"
                   type="text"
                   value={clienteCedula}
                   placeholder="Doe "
                 />
               </div>
-              <div className="mb-5 mx-2">
+              <div className="mb-5 ">
                 <label className="text-lg">Telefono :</label>
                 <input
-                  className="h-5 mx-4 text-lg p-2 rounded-md"
+                  className="h-5 mx-4 text-lg p-2 rounded-md text-center"
                   type="text"
                   value={clienteCasa}
                   placeholder="Doe "
                 />
               </div>
-              <div className="mb-5 mx-2">
+              <div className="mb-5 ">
                 <label className="text-lg">Movil :</label>
                 <input
-                  className="h-5 mx-4 text-lg p-2 rounded-md"
+                  className="h-5 mx-4 text-lg p-2 rounded-md text-center"
                   type="text"
                   value={clienteMovil}
                   placeholder="Doe "
@@ -164,7 +164,7 @@ function Dashboard() {
               <div className="mb-5 mx-2">
                 <label className="text-lg">Opcional :</label>
                 <input
-                  className="h-5 mx-4 text-lg p-2 rounded-md"
+                  className="h-5 mx-4 text-lg p-2 rounded-md text-center"
                   type="text"
                   value={clienteOpcional}
                   placeholder="Doe "
@@ -173,7 +173,7 @@ function Dashboard() {
               <div className="mb-5 mx-2">
                 <label className="text-lg">Oficina:</label>
                 <input
-                  className="h-5 mx-4 text-lg p-2 rounded-md"
+                  className="h-5 mx-4 text-lg p-2 rounded-md text-center"
                   type="text"
                   value={clienteOficina}
                   placeholder="Doe "
@@ -231,7 +231,7 @@ function Dashboard() {
               <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
-                    <th scope="col" className="p-4">
+                    {/* <th scope="col" className="p-4">
                       <div className="flex items-center">
                         <input
                           id="checkbox-all-search"
@@ -245,7 +245,7 @@ function Dashboard() {
                           checkbox
                         </label>
                       </div>
-                    </th>
+                    </th> */}
 
                     <th scope="col" className="px-6 py-3">
                       Nombre
@@ -280,7 +280,7 @@ function Dashboard() {
                       className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                       key={category.cat_id}
                     >
-                      <td className="w-4 p-4">
+                      {/* <td className="w-4 p-4">
                         <div className="flex items-center">
                           <input
                             id={`checkbox-table-search-${category.producto_id}`}
@@ -296,7 +296,7 @@ function Dashboard() {
                             checkbox
                           </label>
                         </div>
-                      </td>
+                      </td> */}
                       <th
                         scope="row"
                         className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -375,7 +375,7 @@ function Dashboard() {
                       Valor Compromiso
                     </th>
                     <th scope="col" className="px-6 py-3">
-                      Fecha
+                      Fecha y Hora
                     </th>
                   </tr>
                 </thead>
@@ -395,7 +395,16 @@ function Dashboard() {
                       <td className="px-6 py-4">{category.observación}</td>
                       <td className="px-6 py-4">{category.numero}</td>
                       <td className="px-6 py-4">{category.valor_compromiso}</td>
-                      <td className="px-6 py-4">{category.fecha}</td>
+                      <td className="px-6 py-4">
+                        {new Date(category.fecha).toLocaleDateString("en-GB", {
+                          day: "2-digit",
+                          month: "2-digit",
+                          year: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          hour12: false,
+                        })}
+                      </td>
                     </tr>
                   ))}
                 </tbody>

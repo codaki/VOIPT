@@ -80,12 +80,12 @@ function Categories() {
   return (
     <div>
       <h1 className="text-[4rem] font-bold leading-none text-center mb-[1em]">
-        Administrador de Categorias
+        Clientes
       </h1>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <div className="flex justify-between items-center p-4 bg-white dark:bg-gray-900">
+        {/* <div className="flex justify-between items-center p-4 bg-white dark:bg-gray-900">
           <button className="ml-4 py-2 px-4 bg-blue-500 text-white rounded-lg">
-            Crear Categoria
+            Crear 
           </button>
 
           <button className="ml-4 py-2 px-4 bg-green-500 text-white rounded-lg">
@@ -98,7 +98,7 @@ function Categories() {
           >
             Eliminar Categorias
           </button>
-        </div>
+        </div> */}
 
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -179,14 +179,14 @@ function Categories() {
                 <td className="px-6 py-4">{category.cliente_direccion}</td>
                 <td className="px-6 py-4 ">
                   <Link className="link" to={`/${category.cliente_id}`}>
-                    <button>Edit</button>
+                    <button>Ver</button>
                   </Link>
-                  <button
+                  {/* <button
                     onClick={() => deleteData(category.cliente_id)}
                     className="ml-2"
                   >
                     Delete
-                  </button>
+                  </button> */}
                 </td>
               </tr>
             ))}
