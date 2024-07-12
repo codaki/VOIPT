@@ -9,12 +9,13 @@ import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+// eslint-disable-next-line react/prop-types
 export default function Modal2({ title, onDecision, id }) {
   const [open, setOpen] = useState(true);
   const [tiposGestiones, setTiposGestiones] = useState([]);
   const [gestiones, setGestiones] = useState([]);
   const [observacion, setObservacion] = useState("");
-  const [gestion, setGestion] = useState("");
+  const [gestion, setGestion] = useState(1);
 
   async function handleSubmit() {
     try {
@@ -155,7 +156,13 @@ export default function Modal2({ title, onDecision, id }) {
                                 </option>
                               ))}
                             </select>
-                            <input type="text"></input>
+                            <label className=" flex py-2">Observaciones</label>
+                            <input
+                              required
+                              className="py-3 m-1 h-20 w-80"
+                              type="text"
+                              onChange={(e) => setObservacion(e.target.value)}
+                            />
                           </form>
                         </div>
                       </div>

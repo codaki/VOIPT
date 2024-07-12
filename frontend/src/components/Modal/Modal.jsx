@@ -9,11 +9,12 @@ import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+// eslint-disable-next-line react/prop-types
 export default function Modal1({ title, onDecision, id }) {
   const [open, setOpen] = useState(true);
   const [productos, setProductos] = useState([]);
-  const [productoSelected, setProductoSelected] = useState("");
-  const [edad, setEdad] = useState("");
+  const [productoSelected, setProductoSelected] = useState(1);
+  const [edad, setEdad] = useState(1);
 
   async function handleSubmit() {
     try {
@@ -41,6 +42,9 @@ export default function Modal1({ title, onDecision, id }) {
         console.log(id);
         console.log(response.data);
         setProductos(response.data);
+        if (productos.length > 0) {
+          setProductoSelected(productos[0].producto_id.toString()); // Default to first product's ID
+        }
         console.log(productos);
       } catch (error) {
         console.error(error);
@@ -102,6 +106,7 @@ export default function Modal1({ title, onDecision, id }) {
                         <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                           <form>
                             <select
+                              value={productoSelected}
                               onChange={(e) =>
                                 setProductoSelected(e.target.value)
                               }
