@@ -1,461 +1,205 @@
-function Contactos() {
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
+//import Error_Referencia from "../assets/alert/Error_Referencia";
+function Categories() {
+  const [categories, setCategories] = useState([]);
+  const [referencia, setReferencia] = useState(false);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("http://localhost:8000/api/usuarios");
+      console.log(response);
+      setCategories(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const deleteData = async (id) => {
+    try {
+      const result = await axios.delete(
+        `http://localhost:8000/api/deleteUsuarios/${id}`
+      );
+      console.log(result.data);
+
+      fetchData();
+      console.log("asdfasd");
+      if (result.data == false) {
+        setReferencia(true);
+        setTimeout(() => {
+          setReferencia(false);
+        }, 2500);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const deleteSelectedCategories = async () => {
+    try {
+      const respu = await Promise.all(
+        selectedCategories.map((id) =>
+          axios.delete(`http://localhost:8000/api/deleteUsuarios/${id}`)
+        )
+      );
+      if (respu.some((item) => item.data === false)) {
+        console.log("One or more items in the response are false");
+        console.log(referencia);
+        setReferencia(true);
+        setTimeout(() => {
+          setReferencia(false);
+        }, 2500);
+        console.log("2", referencia);
+      }
+      fetchData();
+      setSelectedCategories([]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleSelectCategories = (id) => {
+    setSelectedCategories((prevSelected) =>
+      prevSelected.includes(id)
+        ? prevSelected.filter((CategorieId) => CategorieId !== id)
+        : [...prevSelected, id]
+    );
+  };
+
+  const handleSelectAll = () => {
+    if (selectedCategories.length === categories.length) {
+      setSelectedCategories([]);
+    } else {
+      setSelectedCategories(categories.map((category) => category.cliente_id));
+    }
+  };
   return (
-    <>
-      <div className="">
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-              <tr>
-                <th scope="col" className="p-4">
-                  <div className="flex items-center">
-                    <input
-                      id="checkbox-all-search"
-                      type="checkbox"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                    <label htmlFor="checkbox-all-search" className="sr-only">
-                      checkbox
-                    </label>
-                  </div>
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Product name
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Color
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Category
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Price
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Action
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td className="w-4 p-4">
-                  <div className="flex items-center">
-                    <input
-                      id="checkbox-table-search-1"
-                      type="checkbox"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                    <label
-                      htmlFor="checkbox-table-search-1"
-                      className="sr-only"
-                    >
-                      checkbox
-                    </label>
-                  </div>
-                </td>
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  Apple MacBook Pro 1
-                </th>
-                <td className="px-6 py-4">Silver</td>
-                <td className="px-6 py-4">Laptop</td>
-                <td className="px-6 py-4">$2999</td>
-                <td className="px-6 py-4">
-                  <a
-                    href="#"
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    Edit
-                  </a>
-                </td>
-              </tr>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td className="w-4 p-4">
-                  <div className="flex items-center">
-                    <input
-                      id="checkbox-table-search-2"
-                      type="checkbox"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                    <label
-                      htmlFor="checkbox-table-search-2"
-                      className="sr-only"
-                    >
-                      checkbox
-                    </label>
-                  </div>
-                </td>
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  Microsoft Surface Pro
-                </th>
-                <td className="px-6 py-4">White</td>
-                <td className="px-6 py-4">Laptop PC</td>
-                <td className="px-6 py-4">$1999</td>
-                <td className="px-6 py-4">
-                  <a
-                    href="#"
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    Edit
-                  </a>
-                </td>
-              </tr>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td className="w-4 p-4">
-                  <div className="flex items-center">
-                    <input
-                      id="checkbox-table-search-3"
-                      type="checkbox"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                    <label
-                      htmlFor="checkbox-table-search-3"
-                      className="sr-only"
-                    >
-                      checkbox
-                    </label>
-                  </div>
-                </td>
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  Magic Mouse 2
-                </th>
-                <td className="px-6 py-4">Black</td>
-                <td className="px-6 py-4">Accessories</td>
-                <td className="px-6 py-4">$99</td>
-                <td className="px-6 py-4">
-                  <a
-                    href="#"
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    Edit
-                  </a>
-                </td>
-              </tr>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td className="w-4 p-4">
-                  <div className="flex items-center">
-                    <input
-                      id="checkbox-table-search-3"
-                      type="checkbox"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                    <label
-                      htmlFor="checkbox-table-search-3"
-                      className="sr-only"
-                    >
-                      checkbox
-                    </label>
-                  </div>
-                </td>
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  Apple Watch
-                </th>
-                <td className="px-6 py-4">Black</td>
-                <td className="px-6 py-4">Watches</td>
-                <td className="px-6 py-4">$199</td>
-                <td className="px-6 py-4">
-                  <a
-                    href="#"
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    Edit
-                  </a>
-                </td>
-              </tr>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td className="w-4 p-4">
-                  <div className="flex items-center">
-                    <input
-                      id="checkbox-table-search-3"
-                      type="checkbox"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                    <label
-                      htmlFor="checkbox-table-search-3"
-                      className="sr-only"
-                    >
-                      checkbox
-                    </label>
-                  </div>
-                </td>
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  Apple iMac
-                </th>
-                <td className="px-6 py-4">Silver</td>
-                <td className="px-6 py-4">PC</td>
-                <td className="px-6 py-4">$2999</td>
-                <td className="px-6 py-4">
-                  <a
-                    href="#"
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    Edit
-                  </a>
-                </td>
-              </tr>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td className="w-4 p-4">
-                  <div className="flex items-center">
-                    <input
-                      id="checkbox-table-search-3"
-                      type="checkbox"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                    <label
-                      htmlFor="checkbox-table-search-3"
-                      className="sr-only"
-                    >
-                      checkbox
-                    </label>
-                  </div>
-                </td>
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  Apple AirPods
-                </th>
-                <td className="px-6 py-4">White</td>
-                <td className="px-6 py-4">Accessories</td>
-                <td className="px-6 py-4">$399</td>
-                <td className="px-6 py-4">
-                  <a
-                    href="#"
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    Edit
-                  </a>
-                </td>
-              </tr>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td className="w-4 p-4">
-                  <div className="flex items-center">
-                    <input
-                      id="checkbox-table-search-3"
-                      type="checkbox"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                    <label
-                      htmlFor="checkbox-table-search-3"
-                      className="sr-only"
-                    >
-                      checkbox
-                    </label>
-                  </div>
-                </td>
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  iPad Pro
-                </th>
-                <td className="px-6 py-4">Gold</td>
-                <td className="px-6 py-4">Tablet</td>
-                <td className="px-6 py-4">$699</td>
-                <td className="px-6 py-4">
-                  <a
-                    href="#"
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    Edit
-                  </a>
-                </td>
-              </tr>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td className="w-4 p-4">
-                  <div className="flex items-center">
-                    <input
-                      id="checkbox-table-search-3"
-                      type="checkbox"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                    <label
-                      htmlFor="checkbox-table-search-3"
-                      className="sr-only"
-                    >
-                      checkbox
-                    </label>
-                  </div>
-                </td>
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  Magic Keyboard
-                </th>
-                <td className="px-6 py-4">Black</td>
-                <td className="px-6 py-4">Accessories</td>
-                <td className="px-6 py-4">$99</td>
-                <td className="px-6 py-4">
-                  <a
-                    href="#"
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    Edit
-                  </a>
-                </td>
-              </tr>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td className="w-4 p-4">
-                  <div className="flex items-center">
-                    <input
-                      id="checkbox-table-search-3"
-                      type="checkbox"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                    <label
-                      htmlFor="checkbox-table-search-3"
-                      className="sr-only"
-                    >
-                      checkbox
-                    </label>
-                  </div>
-                </td>
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  Smart Folio iPad Air
-                </th>
-                <td className="px-6 py-4">Blue</td>
-                <td className="px-6 py-4">Accessories</td>
-                <td className="px-6 py-4">$79</td>
-                <td className="px-6 py-4">
-                  <a
-                    href="#"
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    Edit
-                  </a>
-                </td>
-              </tr>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td className="w-4 p-4">
-                  <div className="flex items-center">
-                    <input
-                      id="checkbox-table-search-3"
-                      type="checkbox"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                    <label
-                      htmlFor="checkbox-table-search-3"
-                      className="sr-only"
-                    >
-                      checkbox
-                    </label>
-                  </div>
-                </td>
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  AirTag
-                </th>
-                <td className="px-6 py-4">Silver</td>
-                <td className="px-6 py-4">Accessories</td>
-                <td className="px-6 py-4">$29</td>
-                <td className="px-6 py-4">
-                  <a
-                    href="#"
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    Edit
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <nav
-            className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4 bg-blue-400"
-            aria-label="Table navigation"
+    <div>
+      <h1 className="text-[4rem] font-bold leading-none text-center mb-[1em]">
+        Administrador de Categorias
+      </h1>
+      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <div className="flex justify-between items-center p-4 bg-white dark:bg-gray-900">
+          <Link className="link" to={`/newCategory`}>
+            <button className="ml-4 py-2 px-4 bg-blue-500 text-white rounded-lg">
+              Crear Categoria
+            </button>
+          </Link>
+          <Link className="link" to={`/`}>
+            <button className="ml-4 py-2 px-4 bg-green-500 text-white rounded-lg">
+              Productos
+            </button>
+          </Link>
+          <button
+            onClick={deleteSelectedCategories}
+            className="ml-4 my-2 py-2 px-4 bg-red-500 text-white rounded-lg"
           >
-            <span className="text-sm font-normal text-gray-500 dark:text-white mb-4 md:mb-0 block w-full md:inline md:w-auto">
-              Showing{" "}
-              <span className="font-semibold text-gray-900 dark:text-white">
-                1-10
-              </span>{" "}
-              of{" "}
-              <span className="font-semibold text-gray-900 dark:text-white">
-                1000
-              </span>
-            </span>
-            <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                >
-                  Previous
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                >
-                  1
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                >
-                  2
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  aria-current="page"
-                  className="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-                >
-                  3
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                >
-                  4
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                >
-                  5
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                >
-                  Next
-                </a>
-              </li>
-            </ul>
-          </nav>
+            Eliminar Categorias
+          </button>
         </div>
+
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" className="p-4">
+                <div className="flex items-center">
+                  <input
+                    id="checkbox-all-search"
+                    type="checkbox"
+                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    checked={selectedCategories.length === categories.length}
+                    onChange={handleSelectAll}
+                  />
+                  <label htmlFor="checkbox-all-search" className="sr-only">
+                    checkbox
+                  </label>
+                </div>
+              </th>
+
+              <th scope="col" className="px-6 py-3">
+                Nombre
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Apellido
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Cédula
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Cliente Correo
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Móvil
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Direccion
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Acción
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {categories.map((category) => (
+              <tr
+                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                key={category.cliente_id}
+              >
+                <td className="w-4 p-4">
+                  <div className="flex items-center">
+                    <input
+                      id={`checkbox-table-search-${category.cliente_id}`}
+                      type="checkbox"
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      checked={selectedCategories.includes(category.cliente_id)}
+                      onChange={() =>
+                        handleSelectCategories(category.cliente_id)
+                      }
+                    />
+                    <label
+                      htmlFor={`checkbox-table-search-${category.cliente_id}`}
+                      className="sr-only"
+                    >
+                      checkbox
+                    </label>
+                  </div>
+                </td>
+                <th
+                  scope="row"
+                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >
+                  {category.cliente_nombre}
+                </th>
+                <td className="px-6 py-4">{category.cliente_apellido}</td>
+                <td className="px-6 py-4">{category.cliente_cedula}</td>
+                <td className="px-6 py-4">{category.cliente_correo}</td>
+                <td className="px-6 py-4">{category.cliente_movil}</td>
+                <td className="px-6 py-4">{category.cliente_direccion}</td>
+                <td className="px-6 py-4 ">
+                  <Link
+                    className="link"
+                    to={`/category/${category.cliente_id}`}
+                  >
+                    <button>Edit</button>
+                  </Link>
+                  <button
+                    onClick={() => deleteData(category.cliente_id)}
+                    className="ml-2"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-    </>
+    </div>
   );
 }
 
-export default Contactos;
+export default Categories;

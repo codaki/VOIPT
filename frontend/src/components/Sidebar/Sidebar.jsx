@@ -1,5 +1,5 @@
-import { FaSellsy } from "react-icons/fa";
-import { IoBusinessSharp } from "react-icons/io5";
+// import { FaSellsy } from "react-icons/fa";
+// import { IoBusinessSharp } from "react-icons/io5";
 import { MdContacts, MdDashboard } from "react-icons/md";
 import { Link } from "react-router-dom";
 
@@ -12,22 +12,32 @@ export function Sidebar() {
         <div>Usuario</div>
         <div className="flex bg-white  w-full h-0.5"></div>
         <ul className="flex flex-col gap-6  w-full">
-          <button className="py-4 flex space-x-2 justify-center hover:bg-slate-50 hover:text-blue-500 rounded-md  focus:outline-none focus:bg-gray-300 focus:text-blue-600 ">
-            <MdDashboard className="mt-1" />
-            <Link to="/">Dashboard</Link>
-          </button>
-          <button className="py-4 flex space-x-2 justify-center hover:bg-slate-50 hover:text-blue-500 rounded-md focus:outline-none focus:bg-gray-300 focus:text-blue-600">
-            <MdContacts className="mt-1" />
-            <Link to="/contacts">Contactos</Link>
-          </button>
-          <button className="py-4 flex space-x-2 justify-center hover:bg-slate-50 hover:text-blue-500 rounded-md focus:outline-none focus:bg-gray-300 focus:text-blue-600">
+          <Link
+            className="py-4 flex space-x-2 justify-center hover:bg-slate-50 hover:text-blue-500 rounded-md  focus:outline-none focus:bg-gray-300 focus:text-blue-600"
+            to={`/`}
+          >
+            <button className=" flex  justify-center ">
+              <MdDashboard className="mt-1" />
+              Dashboard
+            </button>
+          </Link>
+          <Link
+            className="py-4 flex space-x-2 justify-center hover:bg-slate-50 hover:text-blue-500 rounded-md  focus:outline-none focus:bg-gray-300 focus:text-blue-600"
+            to={`/contacts`}
+          >
+            <button className=" flex space-x-2 ">
+              <MdContacts className="mt-1" />
+              Contactos
+            </button>
+          </Link>
+          {/* <button className="py-4 flex space-x-2 justify-center hover:bg-slate-50 hover:text-blue-500 rounded-md focus:outline-none focus:bg-gray-300 focus:text-blue-600">
             <IoBusinessSharp className="mt-1" />
             <a href="/#">Empresas</a>
           </button>
           <button className="py-4 flex space-x-2 justify-center hover:bg-slate-50 hover:text-blue-500 rounded-md focus:outline-none focus:bg-gray-300 focus:text-blue-600">
             <FaSellsy className="mt-1" />
             <a href="/#">CRM</a>
-          </button>
+          </button> */}
         </ul>
       </aside>
     </>
