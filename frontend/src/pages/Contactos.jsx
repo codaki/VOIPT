@@ -180,10 +180,7 @@ function Categories() {
                 <td className="px-6 py-4">{category.cliente_movil}</td>
                 <td className="px-6 py-4">{category.cliente_direccion}</td>
                 <td className="px-6 py-4 ">
-                  <Link
-                    className="link"
-                    to={`/category/${category.cliente_id}`}
-                  >
+                  <Link className="link" to={`/${category.cliente_id}`}>
                     <button>Edit</button>
                   </Link>
                   <button
