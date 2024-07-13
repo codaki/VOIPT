@@ -104,7 +104,8 @@ export default function Modal1({ title, onDecision, id }) {
                       </DialogTitle>
                       <div className="mt-2 text-gray-500">
                         <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                          <form>
+                          <form className="flex flex-col ">
+                            <label className=" flex py-2">Producto:</label>
                             <select
                               value={productoSelected}
                               onChange={(e) =>
@@ -120,13 +121,19 @@ export default function Modal1({ title, onDecision, id }) {
                                 </option>
                               ))}
                             </select>
-                            <select onChange={(e) => setEdad(e.target.value)}>
-                              <option value="1">Edad 1</option>
-                              <option value="2">Edad 2</option>
-                              <option value="3">Edad 3</option>
-                              <option value="4">Edad 4</option>
-                              <option value="5">Edad 5</option>
-                            </select>
+                            <div>
+                              <label className=" flex py-2">Edad:</label>
+                              <select
+                                className="w-20 items-center"
+                                onChange={(e) => setEdad(e.target.value)}
+                              >
+                                <option value="1">Edad 1</option>
+                                <option value="2">Edad 2</option>
+                                <option value="3">Edad 3</option>
+                                <option value="4">Edad 4</option>
+                                <option value="5">Edad 5</option>
+                              </select>
+                            </div>
                           </form>
                         </div>
                       </div>
@@ -136,7 +143,7 @@ export default function Modal1({ title, onDecision, id }) {
                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
                     type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                    className="mt-3 inline-flex w-full ml-3 justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-red-700 sm:mt-0 sm:w-auto"
                     onClick={() => {
                       setOpen(false);
                       onDecision(false);
@@ -147,7 +154,7 @@ export default function Modal1({ title, onDecision, id }) {
                   </button>
                   <button
                     type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                    className="mt-3 inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-green-700 sm:mt-0 sm:w-auto"
                     onClick={() => {
                       setOpen(false);
                       handleSubmit();

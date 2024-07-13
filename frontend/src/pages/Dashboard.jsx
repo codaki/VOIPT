@@ -251,9 +251,9 @@ function Dashboard() {
                   Añadir Producto
                 </button>
 
-                <button className="ml-4 py-2 px-4 bg-green-500 text-white rounded-lg">
+                <h1 className="ml-4 py-2 px-4  text-3xl text-white ">
                   Productos
-                </button>
+                </h1>
 
                 <Link className="link" to={`/contacts`}>
                   <button className="ml-4 my-2 py-2 px-4 bg-yellow-500 text-white rounded-lg">
@@ -386,9 +386,9 @@ function Dashboard() {
                   Añadir Gestión
                 </button>
 
-                <button className="ml-4 py-2 px-4 bg-green-500 text-white rounded-lg">
+                <h1 className="ml-4 py-2 px-4  text-3xl text-white ">
                   Gestiones
-                </button>
+                </h1>
                 <Link className="link" to={`/contacts`}>
                   <button className="ml-4 my-2 py-2 px-4 bg-yellow-500 text-white rounded-lg">
                     Contactos
@@ -399,50 +399,59 @@ function Dashboard() {
               <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
-                    <th scope="col" className="px-6 py-3">
+                    <th scope="col" className="px-6 py-3 text-center">
                       Nombre
                     </th>
                     <th>Tipo Gestión</th>
-                    <th scope="col" className="px-6 py-3">
-                      Observación
-                    </th>
-                    <th scope="col" className="px-6 py-3">
+                    <th scope="col" className="px-6 py-3 text-center">
                       Número Contactado
                     </th>
-                    <th scope="col" className="px-6 py-3">
+                    <th scope="col" className="px-6 py-3 text-center">
+                      Fecha
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-center">
+                      Hora
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-center">
                       Valor Compromiso
                     </th>
-                    <th scope="col" className="px-6 py-3">
-                      Fecha y Hora
+                    <th scope="col" className="px-6 py-3 text-center">
+                      Observación
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {gestiones.map((category) => (
                     <tr
-                      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
                       key={category.cat_id}
                     >
                       <th
                         scope="row"
-                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-left"
                       >
                         {category.gestion_nombre}
                       </th>
+
                       <th>{category.gestion_tipo_nombre}</th>
-                      <td className="px-6 py-4">{category.observación}</td>
                       <td className="px-6 py-4">{category.numero}</td>
-                      <td className="px-6 py-4">{category.valor_compromiso}</td>
                       <td className="px-6 py-4">
                         {new Date(category.fecha).toLocaleDateString("en-GB", {
                           day: "2-digit",
                           month: "2-digit",
                           year: "numeric",
+                        })}
+                      </td>
+                      <td>
+                        {new Date(category.fecha).toLocaleTimeString("en-GB", {
                           hour: "2-digit",
                           minute: "2-digit",
+                          second: "2-digit",
                           hour12: false,
                         })}
                       </td>
+                      <td className="px-6 py-4">{category.valor_compromiso}</td>
+                      <td className="px-6 py-4">{category.observación}</td>
                     </tr>
                   ))}
                 </tbody>
