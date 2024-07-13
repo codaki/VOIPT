@@ -149,8 +149,9 @@ export default function Modal2({ title, onDecision, id }) {
                       <div className="mt-2 text-gray-800">
                         <div className="bg-gray-100 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 rounded-md">
                           <form>
+                            <label className=" flex py-2">Resultado</label>
                             <select
-                              className="mb-2 w-50"
+                              className=" w-50"
                               onChange={(e) => {
                                 setGestion(e.target.value);
                                 getValores(e.target.value);
@@ -165,6 +166,7 @@ export default function Modal2({ title, onDecision, id }) {
                                 </option>
                               ))}
                             </select>
+                            <label className=" flex py-2">Observación</label>
                             <select
                               onChange={(e) => setGestion(e.target.value)}
                             >
@@ -177,8 +179,11 @@ export default function Modal2({ title, onDecision, id }) {
                                 </option>
                               ))}
                             </select>
+                            <label className=" flex py-2">
+                              Número Contactado
+                            </label>
                             <select
-                              className="mb-2 w-50" // Adjust className as needed
+                              className=" w-50" // Adjust className as needed
                               onChange={(e) => {
                                 setSelectedNumero(e.target.value);
                               }}
@@ -187,12 +192,14 @@ export default function Modal2({ title, onDecision, id }) {
                                 Object.entries(numeros[0]).map(
                                   ([key, value]) => (
                                     <option key={key} value={value}>
-                                      {`${key}: ${value}`}
+                                      {`${value}`}
                                     </option>
                                   )
                                 )}
                             </select>
-                            <label className=" flex py-2">Observaciones</label>
+                            <label className=" flex py-2">
+                              Observaciones Adicionales
+                            </label>
                             <input
                               required
                               className="py-3 m-1 h-20 w-80"

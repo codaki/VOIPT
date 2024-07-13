@@ -77,8 +77,12 @@ function Dashboard() {
           `http://localhost:8000/api/getGestiones/${Number(id)}`
         );
         console.log(response.data);
-        console.log("asdjf;lka;s");
+        console.log("Sorted");
         setGestiones(response.data);
+        const sortedGestiones = response.data.sort(
+          (a, b) => new Date(b.fecha) - new Date(a.fecha)
+        );
+        console.log(sortedGestiones);
       } catch (error) {
         console.error("Failed to fetch product:", error);
       }
@@ -87,93 +91,99 @@ function Dashboard() {
     fetchProduct();
     fetchClient();
   }, [id, showModal, showModal2]);
+  const latestGestion = gestiones[0];
   return (
     <div className="flex flex-col   " id="containter">
       <div
         className="flex flex-row  w-full p-4 gap-3 min-h-44 overflow-auto "
         id="contenedor1"
       >
-        <div className="flex  flex-1 border bg-slate-300 w-full h-auto text-black p-4 rounded-md  ">
-          <div className="flex flex-col w-full  gap-2 ">
-            <div className="flex w-full">Información de contacto</div>
-            <div className="flex w-full  flex-wrap p-2 ">
-              <div className="mb-5 ">
-                <label className="text-lg">Nombre:</label>
-                <input
-                  className="h-5 mx-2 text-lg p-2 rounded-md text-center"
-                  type="text"
-                  value={clienteNombre}
-                  placeholder="Jhon "
-                />
+        <div className="flex  flex-1 border bg-slate-300 w-full h-auto text-black p-4 rounded-md shadow-lg ">
+          <div className="flex flex-col w-full gap-4  ">
+            <div className="flex w-full mb-6">INFORMACIÓN DE CLIENTE</div>
+            <div
+              className=" px-6 w-full flex  flex-wrap gap-5 h-full"
+              id="seciones"
+            >
+              <div className="flex flex-wrap justify-between w-80">
+                <div className=" text-lg">Nombre:</div>
+                <div>
+                  <input
+                    className="h-5 mx-2 text-lg w-52  mt-1 rounded-md text-center"
+                    type="text"
+                    value={clienteNombre}
+                    placeholder="Jhon "
+                  />
+                </div>
               </div>
-              <div className="mb-5 ">
+              <div className="flex flex-wrap justify-between w-80">
                 <label className="text-lg">Apellido:</label>
                 <input
-                  className="h-5 mx-4 text-lg p-2 rounded-md text-center"
+                  className="h-5 mx-2 text-lg w-52  mt-1 rounded-md text-center"
                   type="text"
                   value={clienteApellido}
                   placeholder="Doe "
                 />
               </div>
-              <div className="mb-5  ">
+              <div className=" flex flex-wrap justify-between w-80 ">
                 <label className="text-lg">Dirección :</label>
                 <input
-                  className="h-5 mx-4 text-lg p-2 rounded-md text-center"
+                  className="h-5 mx-2 text-lg w-52  mt-1 rounded-md text-center"
                   type="text"
                   value={clienteDireccion}
                   placeholder="Doe "
                 />
               </div>
 
-              <div className="mb-5 ">
+              <div className="flex flex-wrap justify-between w-80 ">
                 <label className="text-lg">Correo :</label>
                 <input
-                  className="h-5 mx-4 text-lg p-2 rounded-md text-center"
+                  className="h-5 mx-2 text-lg w-52  mt-1 rounded-md text-center"
                   type="text"
                   value={clienteCorreo}
                   placeholder="Doe "
                 />
               </div>
-              <div className="mb-5">
+              <div className="flex flex-wrap justify-between w-80 ">
                 <label className="text-lg">Cédula :</label>
                 <input
-                  className="h-5 mx-4 text-lg p-2 rounded-md text-center"
+                  className="h-5 mx-2 text-lg w-52  mt-1 rounded-md text-center"
                   type="text"
                   value={clienteCedula}
                   placeholder="Doe "
                 />
               </div>
-              <div className="mb-5 ">
+              <div className=" flex flex-wrap justify-between w-80">
                 <label className="text-lg">Telefono :</label>
                 <input
-                  className="h-5 mx-4 text-lg p-2 rounded-md text-center"
+                  className="h-5 mx-2 text-lg w-52  mt-1 rounded-md text-center"
                   type="text"
                   value={clienteCasa}
                   placeholder="Doe "
                 />
               </div>
-              <div className="mb-5 ">
+              <div className=" flex flex-wrap justify-between w-80">
                 <label className="text-lg">Movil :</label>
                 <input
-                  className="h-5 mx-4 text-lg p-2 rounded-md text-center"
+                  className="h-5 mx-2 text-lg w-52  mt-1 rounded-md text-center"
                   type="text"
                   value={clienteMovil}
                   placeholder="Doe "
                 />
               </div>
-              <div className="mb-5 mx-2">
+              <div className="flex flex-wrap justify-between w-80 ">
                 <label className="text-lg">Opcional :</label>
                 <input
-                  className="h-5 mx-4 text-lg p-2 rounded-md text-center"
+                  className="h-5 mx-2 text-lg w-52  mt-1 rounded-md text-center"
                   type="text"
                   value={clienteOpcional}
                   placeholder="Doe "
                 />
               </div>
-              <div className="mb-5 mx-2">
+              <div className=" flex flex-wrap justify-between w-80">
                 <label className="text-lg">Oficina:</label>
                 <input
-                  className="h-5 mx-4 text-lg p-2 rounded-md text-center"
+                  className="h-5 mx-2 text-lg w-52  mt-1 rounded-md text-center"
                   type="text"
                   value={clienteOficina}
                   placeholder="Doe "
@@ -182,31 +192,55 @@ function Dashboard() {
             </div>
           </div>
         </div>
-        <div className="flex max-w-96  border-black border  p-4 rounded-md">
-          <div className="flex flex-col min-w-80  gap-2 ">
+        <div className="flex max-w-md bg-slate-100  p-4 rounded-md shadow-lg">
+          <div className="flex flex-col  ">
             <div className="flex w-full">UTLTIMA INTERACCION</div>
             <div className="flex flex-col">
               <div>
-                <label>Deudas: </label>
-                <label>7</label>
-              </div>
-              <div>
-                <label>Pagos relizados: </label>
-                <label>2342</label>
-              </div>
-              <div>
-                <label>Fecah último pago: </label>
-                <label>13-02-2024</label>
+                {latestGestion ? (
+                  <div className="flex flex-wrap w-60 pl-5 text-sm gap-2">
+                    <p>
+                      <h1 className="font-bold">Gestión Nombre:</h1>
+
+                      {latestGestion.gestion_nombre}
+                    </p>
+                    <p>
+                      <h1 className="font-bold">Observación: </h1>
+                      {latestGestion.observación}
+                    </p>
+                    <p>
+                      <h1 className="font-bold">Gestión Tipo Nombre: </h1>
+                      {latestGestion.gestion_tipo_nombre}
+                    </p>
+                    <p>
+                      <h1 className="font-bold">Fecha:</h1>
+                      {new Date(latestGestion.fecha).toLocaleString()}
+                    </p>
+                    <p className="w-60">
+                      <h1 className="font-bold">Número:</h1>
+                      {latestGestion.numero}
+                    </p>
+                    <p>
+                      <h1 className="font-bold"> Valor Compromiso:</h1>
+                      {latestGestion.valor_compromiso || "N/A"}
+                    </p>
+                  </div>
+                ) : (
+                  <p>No hay gestiones disponibles.</p>
+                )}
               </div>
             </div>
-            <button className="ml-4 py-2 px-4 bg-blue-500 text-white rounded-lg">
+            <button
+              onClick={toggleModalGestion}
+              className="ml-4 py-2 mt-2 px-4 bg-blue-500 text-white rounded-lg"
+            >
               Añadir Interaccion
             </button>
           </div>
         </div>
       </div>
       <div className="flex flex-row  w-full p-4 min-h-44">
-        <div className="flex border bg-blue-300 w-full min-h-40 text-black  p-4 rounded-md ">
+        <div className="flex border bg-blue-300 w-full min-h-40 text-black  p-4 rounded-md shadow-lg">
           <div className="w-full p-4">
             <div className="relative w-full shadow-md sm:rounded-lg">
               <div className="flex justify-between items-center p-4 bg-white dark:bg-gray-900">
@@ -337,7 +371,7 @@ function Dashboard() {
       </div>
 
       <div className="flex flex-row  w-full p-4 min-h-44">
-        <div className="flex border bg-green-300 w-full min-h-40 text-black  p-4 rounded-md ">
+        <div className="flex border bg-green-300 w-full min-h-40 text-black  p-4 rounded-md shadow-lg">
           <div className="w-full">
             <div className="relative w-full shadow-md sm:rounded-lg">
               <div className="flex justify-between items-center p-4 bg-white dark:bg-gray-900">

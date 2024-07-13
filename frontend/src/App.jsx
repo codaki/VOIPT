@@ -13,7 +13,9 @@ const Layout = () => {
         <Sidebar />
         <div className="flex-1 ">
           <div className="p-4  ">
-            <div className=" p-4 w-full rounded-md bg-slate-300 mb-2">Ruta</div>
+            <div className=" p-4 w-full rounded-md bg-slate-300 mb-2 shadow-lg">
+              Ruta
+            </div>
             <div className="overflow-auto max-h-screen  pb-36">
               <Outlet />
             </div>
