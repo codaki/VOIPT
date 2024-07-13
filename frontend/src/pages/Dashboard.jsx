@@ -98,7 +98,7 @@ function Dashboard() {
         className="flex flex-row  w-full p-4 gap-3 min-h-44 overflow-auto "
         id="contenedor1"
       >
-        <div className="flex  flex-1 border bg-slate-300 w-full h-auto text-black p-4 rounded-md shadow-lg ">
+        <div className="flex  flex-1  bg-slate-300 w-full h-auto text-black p-4 rounded-md shadow-xl ">
           <div className="flex flex-col w-full gap-4  ">
             <div className="flex w-full mb-6">INFORMACIÓN DE CLIENTE</div>
             <div
@@ -192,27 +192,27 @@ function Dashboard() {
             </div>
           </div>
         </div>
-        <div className="flex max-w-md bg-slate-100  p-4 rounded-md shadow-lg">
+        <div className="flex max-w-md bg-slate-100  p-4 rounded-md  shadow-xl">
           <div className="flex flex-col  ">
             <div className="flex w-full">UTLTIMA INTERACCION</div>
             <div className="flex flex-col">
               <div>
                 {latestGestion ? (
                   <div className="flex flex-wrap w-60 pl-5 text-sm gap-2">
-                    <p>
+                    <p className="w-60">
                       <h1 className="font-bold">Gestión Nombre:</h1>
 
                       {latestGestion.gestion_nombre}
                     </p>
-                    <p>
+                    <p className="w-60">
                       <h1 className="font-bold">Observación: </h1>
                       {latestGestion.observación}
                     </p>
-                    <p>
+                    <p className="w-60">
                       <h1 className="font-bold">Gestión Tipo Nombre: </h1>
                       {latestGestion.gestion_tipo_nombre}
                     </p>
-                    <p>
+                    <p className="w-60">
                       <h1 className="font-bold">Fecha:</h1>
                       {new Date(latestGestion.fecha).toLocaleString()}
                     </p>
@@ -220,7 +220,7 @@ function Dashboard() {
                       <h1 className="font-bold">Número:</h1>
                       {latestGestion.numero}
                     </p>
-                    <p>
+                    <p className="w-60">
                       <h1 className="font-bold"> Valor Compromiso:</h1>
                       {latestGestion.valor_compromiso || "N/A"}
                     </p>
@@ -285,25 +285,25 @@ function Dashboard() {
                       Nombre
                     </th>
 
-                    <th scope="col" className="px-6 py-3">
+                    <th scope="col" className="px-6 py-3 text-center">
                       1era Edad
                     </th>
-                    <th scope="col" className="px-6 py-3">
+                    <th scope="col" className="px-6 py-3 text-center">
                       2da Edad
                     </th>
-                    <th scope="col" className="px-6 py-3">
+                    <th scope="col" className="px-6 py-3 text-center">
                       3era Edad
                     </th>
-                    <th scope="col" className="px-6 py-3">
+                    <th scope="col" className="px-6 py-3 text-center">
                       4ta Edad
                     </th>
-                    <th scope="col" className="px-6 py-3">
+                    <th scope="col" className="px-6 py-3 text-center">
                       5ta Edad
                     </th>
-                    <th scope="col" className="px-6 py-3">
+                    <th scope="col" className="px-6 py-3 text-center">
                       Suma Días
                     </th>
-                    <th scope="col" className="px-6 py-3">
+                    <th scope="col" className="px-6 py-3 text-center">
                       Suma Saldo
                     </th>
                   </tr>
@@ -341,21 +341,25 @@ function Dashboard() {
                       {Array.from(
                         { length: category.edad < 5 ? category.edad : 4 },
                         (_, index) => (
-                          <td key={index}>{category.producto_carga_mensual}</td>
+                          <td className="text-center" key={index}>
+                            {category.producto_carga_mensual}
+                          </td>
                         )
                       )}
                       {Array.from({ length: 4 - category.edad }, (_, index) => (
-                        <td key={`empty-${index}`}>0</td>
+                        <td className="text-center" key={`empty-${index}`}>
+                          0
+                        </td>
                       ))}
-                      <td>
+                      <td className="text-center">
                         {category.edad >= 5
                           ? category.producto_carga_mensual * 3
                           : 0}
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-6 py-4 text-center">
                         {category.edad < 5 ? category.edad * 30 : 4 * 30 + 90}
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-6 py-4 text-center">
                         {category.edad <= 4
                           ? category.producto_carga_mensual * category.edad
                           : category.producto_carga_mensual * category.edad +
