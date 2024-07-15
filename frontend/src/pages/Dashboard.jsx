@@ -102,14 +102,14 @@ function Dashboard() {
           <div className="flex flex-col w-full gap-4  ">
             <div className="flex w-full mb-6">INFORMACIÓN DE CLIENTE</div>
             <div
-              className=" px-6 w-full flex  flex-wrap gap-5 h-full"
+              className=" pl-6 w-full flex  flex-wrap gap-5 h-full"
               id="seciones"
             >
               <div className="flex flex-wrap justify-between w-80">
                 <div className=" text-lg">Nombre:</div>
                 <div>
                   <input
-                    className="h-5 mx-2 text-lg w-52  mt-1 rounded-md text-center"
+                    className="h-5 text-lg w-52  mt-1 rounded-md text-center"
                     type="text"
                     value={clienteNombre}
                     placeholder="Jhon "
